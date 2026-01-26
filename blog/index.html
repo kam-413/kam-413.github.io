@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Archive | Kaitlyn Mohr</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #252525;
+      --text-primary: #f5f5f5;
+      --text-secondary: #d0d0d0;
+      --accent-red: #ff3b3b;
+      --accent-yellow: #ffd93d;
+      --border: #333;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.9);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent-red);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 120px auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .filters {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .filter-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .filter-label {
+      color: var(--accent-yellow);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .filter-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-tag {
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-tag:hover {
+      border-color: var(--accent-red);
+      color: var(--text-primary);
+    }
+
+    .filter-tag.active {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      color: var(--bg-primary);
+    }
+
+    .sort-select {
+      padding: 0.75rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sort-select:hover {
+      border-color: var(--accent-yellow);
+    }
+
+    .blog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .blog-post {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .blog-post:hover {
+      border-color: var(--accent-yellow);
+      transform: translateX(4px);
+    }
+
+    .blog-post.hidden {
+      display: none;
+    }
+
+    .post-date {
+      color: var(--accent-red);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .blog-post h3 {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .blog-post p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-secondary);
+    }
+
+    .no-results.hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="back-link">← Back to Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Blog</h1>
+      <p class="subtitle">Technical observations, tool reviews, and security insights</p>
+    </div>
+
+    <div class="filters">
+      <div class="filter-section">
+        <label class="filter-label">Filter by Topic</label>
+        <div class="filter-tags" id="topicFilters">
+          <span class="filter-tag" data-tag="all">All</span>
+          <span class="filter-tag" data-tag="Threat Intel">Threat Intel</span>
+          <span class="filter-tag" data-tag="Tools">Tools</span>
+          <span class="filter-tag" data-tag="Analysis">Analysis</span>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <label class="filter-label">Sort by</label>
+        <select class="sort-select" id="sortSelect">
+          <option value="date-desc">Newest First</option>
+          <option value="date-asc">Oldest First</option>
+          <option value="title">Title A-Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="blog-list" id="blogList">
+      <!-- Blog posts will be populated here -->
+    </div>
+
+    <div class="no-results hidden" id="noResults">
+      <h3>No posts found</h3>
+      <p>Try adjusting your filters</p>
+    </div>
+  </main>
+
+  <script>
+    const blogPosts = [
+      {
+        title: "Technical observations and threat intelligence notes",
+        description: "Short-form analysis, tool reviews, and security insights coming soon.",
+        date: "2026-01-30",
+        tags: ["Threat Intel", "Analysis"],
+        url: "#",
+        comingSoon: true
+      }
+    ];
+
+    let activeTag = 'all';
+    let sortBy = 'date-desc';
+
+    function renderBlog() {
+      const list = document.getElementById('blogList');
+      const noResults = document.getElementById('noResults');
+      
+      let filtered = blogPosts.filter(item => {
+        if (activeTag === 'all') return true;
+        return item.tags.includes(activeTag);
+      });
+
+      filtered.sort((a, b) => {
+        if (sortBy === 'date-desc') {
+          return new Date(b.date) - new Date(a.date);
+        } else if (sortBy === 'date-asc') {
+          return new Date(a.date) - new Date(b.date);
+        } else if (sortBy === 'title') {
+          return a.title.localeCompare(b.title);
+        }
+      });
+
+      list.innerHTML = '';
+      
+      if (filtered.length === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        
+        filtered.forEach(item => {
+          const post = document.createElement('div');
+          post.className = 'blog-post';
+          if (!item.comingSoon) {
+            post.onclick = () => window.location.href = item.url;
+          }
+          
+          const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          
+          post.innerHTML = `
+            <div class="post-date">${item.comingSoon ? 'Coming Soon' : formattedDate}</div>
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <div class="post-tags">
+              ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          `;
+          
+          list.appendChild(post);
+        });
+      }
+    }
+
+    document.getElementById('topicFilters').addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-tag')) {
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+          tag.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        activeTag = e.target.dataset.tag;
+        renderBlog();
+      }
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      sortBy = e.target.value;
+      renderBlog();
+    });
+
+    document.querySelector('[data-tag="all"]').classList.add('active');
+    renderBlog();
+  </script>
+</body>
+</html>
