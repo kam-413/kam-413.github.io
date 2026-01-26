@@ -197,6 +197,19 @@
       background: linear-gradient(90deg, var(--accent-red), transparent);
     }
 
+    .see-all {
+      color: var(--accent-yellow);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .see-all:hover {
+      color: var(--accent-red);
+    }
+
     /* Cards Grid */
     .cards-grid {
       display: grid;
@@ -409,6 +422,7 @@
       <div class="section-header">
         <h2>Research</h2>
         <div class="accent-line"></div>
+        <a href="research/" class="see-all">See All →</a>
       </div>
       <div class="cards-grid">
         <div class="card" onclick="window.location.href='research/game-theory-cybersecurity.html'" style="cursor: pointer;">
@@ -437,6 +451,7 @@
       <div class="section-header">
         <h2>Projects</h2>
         <div class="accent-line"></div>
+        <a href="projects/" class="see-all">See All →</a>
       </div>
       <div class="cards-grid">
         <div class="card">
@@ -463,6 +478,7 @@
       <div class="section-header">
         <h2>Blog</h2>
         <div class="accent-line"></div>
+        <a href="blog/" class="see-all">See All →</a>
       </div>
       <div class="post-list">
         <div class="post-item">
