@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Strategy Through Balance and Synthesis | Kaitlyn Mohr</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #252525;
+      --text-primary: #f5f5f5;
+      --text-secondary: #d0d0d0;
+      --accent-red: #ff3b3b;
+      --accent-yellow: #ffd93d;
+      --border: #333;
+      --code-bg: #1e1e1e;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.8;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.9);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: var(--accent-red);
+    }
+
+    article {
+      max-width: 900px;
+      margin: 120px auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .report-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .meta-label {
+      color: var(--accent-yellow);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .tag {
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 3rem 0 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent-red);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--accent-yellow);
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+
+    .executive-summary {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-yellow);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .executive-summary h2 {
+      margin-top: 0;
+      border: none;
+      padding: 0;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--accent-red);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      background: var(--bg-secondary);
+      border-radius: 0 8px 8px 0;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .callout {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--accent-red);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .callout.info {
+      border-left-color: var(--accent-yellow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: var(--bg-tertiary);
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      color: var(--accent-yellow);
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .diagram {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .framework-box {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .framework-box h4 {
+      color: var(--accent-red);
+      margin-bottom: 0.5rem;
+    }
+
+    ul, ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    .citation {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .bibliography {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--border);
+    }
+
+    .bibliography h2 {
+      margin-top: 0;
+    }
+
+    .bibliography ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .bibliography li {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      text-indent: -1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .report-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="back-link">← Back to Home</a>
+    </div>
+  </nav>
+
+  <article>
+    <div class="report-header">
+      <div class="report-meta">
+        <div class="meta-item">
+          <span class="meta-label">Published:</span>
+          <span>December 4, 2025</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Category:</span>
+          <span>Research Paper</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Course:</span>
+          <span>HNR 111: Introduction to the Life and Mind</span>
+        </div>
+      </div>
+      <h1>Cybersecurity Strategy Through Balance and Synthesis</h1>
+      <p class="subtitle">Integrating Game Theory and Deterrence Theory for Adaptive Defense</p>
+      <div class="tags">
+        <span class="tag">Game Theory</span>
+        <span class="tag">Deterrence Theory</span>
+        <span class="tag">Strategic Defense</span>
+        <span class="tag">Threat Intelligence</span>
+      </div>
+    </div>
+
+    <div class="executive-summary">
+      <h2>Executive Summary</h2>
+      <p>Cybersecurity professionals face an impossible strategic choice: defend against known vulnerabilities or hunt for unknown threats. This paper synthesizes game-theoretic modeling with Cold War deterrence principles to create a framework for adaptive defense. By combining iterative game theory (which models adversary adaptation) with deterrence theory (which addresses uncertainty and credibility), defenders can balance resource allocation between known and novel threats. The synthesis provides what neither theory offers independently: a strategic framework for operating against adaptive adversaries under incomplete information.</p>
+    </div>
+
+    <h2>The Strategic Problem</h2>
+    <p>Every cybersecurity professional faces the same impossible choice: patch a thousand known vulnerabilities or spend time hunting for threats. This is always an issue of handling the things that will absolutely burn you if you ignore them. However, sometimes what burns you isn't always a thing you can measure. The type of attacker that matters will likely use zero-day vulnerabilities and be waiting for you to focus on patching instead of hunting.</p>
+
+    <p>This remains both a technical and strategic issue, which is the basis of balancing and synthesizing approaches. Our cybersecurity industry sells the illusion that better technology will equal better security. While sellers might promise 'next-generation firewalls' to 'finally solve your issue for good', the focus is on only half of the battle. Good attackers don't brute force through equipment—they adapt and change the game.</p>
+
+    <h2>Game Theory: Understanding Adaptive Adversaries</h2>
+    
+    <h3>Strategic Interaction Framework</h3>
+    <p>Fundamentally, to bring balance to topics is to melt them together with one idea that is yet a perfect representation of each of them equally. Synthesis differs from balance in that it combines insights from multiple areas to solve specific issues the separate idea could not address alone. This is exactly what cybersecurity is meant to address: an effective cybersecurity strategy will synthesize game-theoretic modeling with adaptive Cold War deterrence principles and balance defending against known patterns while preparing for incomplete threats.</p>
+
+    <p>Cuong T. Do demonstrates this core principle: <span class="citation">"The strategic interaction between them [Game Theory and Cybersecurity] is captured by a two-player game in which each player attempts to maximize [their] own interests. The attacker's strategy depends heavily on the defender's actions and vice versa"</span> (302). This represents a gamified day-in-the-life—an interaction between intelligent opponents whose choices depend on defensive stance. This defense must anticipate this, as neither side acts in isolation. This interdependence defines the main issue.</p>
+
+    <div class="diagram">
+      <h4>Strategic Interaction Model</h4>
+      <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#ff3b3b" />
+          </marker>
+          <marker id="arrowyellow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#ffd93d" />
+          </marker>
+        </defs>
+        
+        <!-- Attacker box -->
+        <rect x="50" y="50" width="150" height="80" fill="#252525" stroke="#ff3b3b" stroke-width="2" rx="8"/>
+        <text x="125" y="95" text-anchor="middle" fill="#ff3b3b" font-size="18" font-weight="bold">ATTACKER</text>
+        <text x="125" y="115" text-anchor="middle" fill="#a0a0a0" font-size="12">Adaptive Strategy</text>
+        
+        <!-- Defender box -->
+        <rect x="400" y="50" width="150" height="80" fill="#252525" stroke="#ffd93d" stroke-width="2" rx="8"/>
+        <text x="475" y="95" text-anchor="middle" fill="#ffd93d" font-size="18" font-weight="bold">DEFENDER</text>
+        <text x="475" y="115" text-anchor="middle" fill="#a0a0a0" font-size="12">Response Strategy</text>
+        
+        <!-- Arrows -->
+        <path d="M 200 70 Q 300 40 400 70" stroke="#ff3b3b" stroke-width="2" fill="none" marker-end="url(#arrowred)"/>
+        <text x="300" y="35" text-anchor="middle" fill="#ff3b3b" font-size="11">Probes & Adapts</text>
+        
+        <path d="M 400 110 Q 300 140 200 110" stroke="#ffd93d" stroke-width="2" fill="none" marker-end="url(#arrowyellow)"/>
+        <text x="300" y="165" text-anchor="middle" fill="#ffd93d" font-size="11">Detects & Responds</text>
+        
+        <!-- Iteration indicator -->
+        <text x="300" y="220" text-anchor="middle" fill="#a0a0a0" font-size="14" font-style="italic">Repeated Interactions → Strategy Evolution</text>
+      </svg>
+    </div>
+
+    <h3>Evolutionary Game Theory: TIT FOR TAT</h3>
+    <p>This critical insight from game theories shows strategies evolve. One-time games allow for clever tactics. Repetition of the game demands an evolving strategy. The Evolution Game analyzes this possibility: <span class="citation">"Over a period of time, the same individuals may interact again, allowing for complex patterns of strategic interactions"</span> (Axelrod & Hamilton, 1390). Cybersecurity is rarely a single encounter: the same adversary probes your network, learning your response and blind spots. Any previous defense becomes predictable for next time.</p>
+
+    <p>Axelrod's research revealed the winning strategy was the simplest. TIT FOR TAT succeeded through its four properties of defensive strategy:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Definition</th>
+          <th>Cybersecurity Application</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Nice</strong></td>
+          <td>Never attack first</td>
+          <td>Avoid unnecessary escalation; defensive posture only</td>
+        </tr>
+        <tr>
+          <td><strong>Provocable</strong></td>
+          <td>Respond immediately</td>
+          <td>Immediate detection and response to prevent exploitation</td>
+        </tr>
+        <tr>
+          <td><strong>Forgiving</strong></td>
+          <td>Return to cooperation post-retaliation</td>
+          <td>De-escalate after containment to avoid endless conflict</td>
+        </tr>
+        <tr>
+          <td><strong>Clear</strong></td>
+          <td>Predictable behavior</td>
+          <td>Make consequences known to change adversary incentives</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <blockquote>
+      "TIT FOR TAT won the tournament…by eliciting behaviour from the other player which allowed both to do well" — Axelrod (1984, 112)
+    </blockquote>
+
+    <p>The goal is to make attacking you more costly than someone else (deterrence theory). TIT FOR TAT succeeds because it changes the opponent's incentive—the most effective changer.</p>
+
+    <h3>Limitations of Pure Game Theory</h3>
+    <p>Purely applying these theories to cybersecurity assumes too much. <span class="citation">"In a real cyber system, due to bounded rationality…it is difficult for both the attacker and the defender to always perform the best-response actions"</span> (Roy et al, 306). Professionals have no time for calculations when an incident occurs. They must operate under pressure and constraints, making satisficing decisions, not optimal ones.</p>
+
+    <div class="callout info">
+      <p><strong>The Reality Gap:</strong> Academic game theory diverges from operational reality. Real attackers don't announce themselves. A framework designed for incomplete information and uncertainty is required. Game theory provides models of adaptation but fails when information is incomplete.</p>
+    </div>
+
+    <h2>Deterrence Theory: Managing Uncertainty</h2>
+
+    <h3>Credibility Over Capability</h3>
+    <p>Thomas Schelling understood that force matters less than the credibility of the threat. In the Cold War, nuclear weapons did not prevent World War III because of their destructive power—it was because adversaries believed they would be used if necessary. Credibility trumps capability in deterrence efforts.</p>
+
+    <p>Schelling states: <span class="citation">"A strategic move is one that influences the other person's choice, in a…favorable [manner] to one's self…on how one's self will behave"</span> (39). The goal of defense is to make the attacker believe they will be detected and punished. The attacker must believe there will be a response, even if the response is costly.</p>
+
+    <h3>Operating Under Incomplete Information</h3>
+    <p>Practitioners face uncertainty from attackers' tools, discoveries, or risk tolerance. Security professionals make decisions with approximately 30% of the information they need. Schelling addressed this, noting that <span class="citation">"we change the character of the game when we drastically alter the amount of contextual detail that it contains"</span> and showing how eliminating <span class="citation">"compelling factors as the players' uncertainty about each other's value systems"</span> (190) creates unrealistic models.</p>
+
+    <p>Academic security models are most useless when they clean up reality. Schelling built deterrence theory around uncertainty, showing that you must <span class="citation">"communicate the commitment that goes with [the threat]…evidence that the commitment exists"</span> (174). Only actions create credibility.</p>
+
+    <div class="callout">
+      <p><strong>Key Insight:</strong> Effective deterrence requires "both capability and credibility" (Axelrod, 252). Deterrence theory provides principles for managing uncertainty but does not address adaptation over time. Without connection to a learning process, deterrence theory fails. Game theory supplies adaptivity through repetition. Neither can stand alone.</p>
+    </div>
+
+    <h2>Synthesis Framework: Combining Game Theory and Deterrence</h2>
+
+    <p>Game theory provides a model for evolution, analysis to predict outcomes, and a framework to understand adaptation. Deterrence supplies principles for maintaining credibility, commitment frameworks, and methods for incomplete information. Together, these two create a framework for strategic resource allocation decisions against adaptive adversaries.</p>
+
+    <div class="framework-box">
+      <h4>Game Theory Contributions</h4>
+      <ul>
+        <li>Mathematical framework for strategic interaction</li>
+        <li>Models for adversary adaptation through repeated play</li>
+        <li>Equilibrium analysis for outcome prediction</li>
+      </ul>
+    </div>
+
+    <div class="framework-box">
+      <h4>Deterrence Theory Contributions</h4>
+      <ul>
+        <li>Credibility and commitment principles</li>
+        <li>Methods for operating under incomplete information</li>
+        <li>Strategic signaling to influence adversary behavior</li>
+      </ul>
+    </div>
+
+    <h3>FLIPIT: Synthesis in Action</h3>
+    <p>FLIPIT demonstrates this synthesis because it captures both dimensions of the issue. Van Dijk et al proposed <span class="citation">"a two-player game between an attacker and defender called FLIPIT, or the game of 'Stealthy Takeover'"</span> (655). This uses a mathematical framework and strategic interaction with a distinct feature: <span class="citation">"the players do not know when the other player has taken over"</span> (Van Dijk et al, 655). This realistic nature perfectly demonstrates the exact balance problem practitioners face.</p>
+
+    <div class="diagram">
+      <h4>FLIPIT Game Model</h4>
+      <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
+        <!-- Timeline -->
+        <line x1="50" y1="125" x2="550" y2="125" stroke="#333" stroke-width="2"/>
+        
+        <!-- Time markers -->
+        <text x="50" y="145" text-anchor="middle" fill="#a0a0a0" font-size="11">t₀</text>
+        <text x="200" y="145" text-anchor="middle" fill="#a0a0a0" font-size="11">t₁</text>
+        <text x="350" y="145" text-anchor="middle" fill="#a0a0a0" font-size="11">t₂</text>
+        <text x="500" y="145" text-anchor="middle" fill="#a0a0a0" font-size="11">t₃</text>
+        
+        <!-- Defender moves -->
+        <circle cx="50" cy="125" r="8" fill="#ffd93d"/>
+        <circle cx="350" cy="125" r="8" fill="#ffd93d"/>
+        <text x="50" y="100" text-anchor="middle" fill="#ffd93d" font-size="12">D</text>
+        <text x="350" y="100" text-anchor="middle" fill="#ffd93d" font-size="12">D</text>
+        
+        <!-- Attacker moves -->
+        <circle cx="200" cy="125" r="8" fill="#ff3b3b"/>
+        <circle cx="500" cy="125" r="8" fill="#ff3b3b"/>
+        <text x="200" y="170" text-anchor="middle" fill="#ff3b3b" font-size="12">A</text>
+        <text x="500" y="170" text-anchor="middle" fill="#ff3b3b" font-size="12">A</text>
+        
+        <!-- Control periods -->
+        <rect x="50" y="50" width="150" height="20" fill="#ffd93d" opacity="0.3"/>
+        <text x="125" y="40" text-anchor="middle" fill="#ffd93d" font-size="11">Defender Control</text>
+        
+        <rect x="200" y="50" width="150" height="20" fill="#ff3b3b" opacity="0.3"/>
+        <text x="275" y="40" text-anchor="middle" fill="#ff3b3b" font-size="11">Attacker Control</text>
+        
+        <rect x="350" y="50" width="150" height="20" fill="#ffd93d" opacity="0.3"/>
+        
+        <!-- Uncertainty indicator -->
+        <text x="300" y="210" text-anchor="middle" fill="#a0a0a0" font-size="12" font-style="italic">Neither player knows current control state</text>
+      </svg>
+    </div>
+
+    <h3>Cyber Security Game (CSG): Resource Allocation</h3>
+    <p>The Cyber Security Game from Musman and Turner addresses <span class="citation">"how much decoy data is enough"</span> (140). By <span class="citation">"exploring the game-tree, CSG portfolios are always balanced to reduce overall risk"</span> (140). This demonstrates strategic resource allocation in practice.</p>
+
+    <blockquote>
+      "CSG answers [the resource allocation problem] by being able to apportion decoy data until the best attacker move becomes one that attacks components not being protected by the decoys" — Musman & Turner (140)
+    </blockquote>
+
+    <p>This showcases synthesis in defense and attacker incentives. Understanding the motivation behind the attack is a prime deterrence principle that directly informs resource allocation. The balance here shifts based on strategic assessment, not universal best practices.</p>
+
+    <h2>Application: Balancing Known and Novel Threats</h2>
+
+    <h3>The Core Tension</h3>
+    <p>Defenders must handle known threats first, but novel threats still lurk in the background. Axelrod recognizes that resources are finite (1984). Protection against the measurable and unpredictable is hard. You need both defenses, but the budget is limited. Spend all resources on known threats and remain vulnerable to novel attacks. Spend all resources preparing for unknown threats and get hit with preventable exploits. Neither extreme works.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Threat Type</th>
+          <th>Characteristics</th>
+          <th>Defense Approach</th>
+          <th>Cold War Analogy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Known Threats</strong></td>
+          <td>Documented vulnerabilities, published CVEs, known attack patterns</td>
+          <td>Signature-based detection, patching, established defenses</td>
+          <td>Defending against known Soviet missile capabilities</td>
+        </tr>
+        <tr>
+          <td><strong>Novel Threats</strong></td>
+          <td>Zero-days, custom malware, APT tactics, undisclosed vulnerabilities</td>
+          <td>Red teaming, threat modeling, behavioral detection</td>
+          <td>Preparing for unanticipated Soviet strategic moves</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Zero-Day Reality</h3>
+    <p>Novel isn't a new version of known—it's a zero-day vulnerability that hasn't been disclosed yet. Advanced Persistence Threats (APTs) don't use known tools; they develop custom malware, discover zero-days, and create attack chains for your systems. Zero-day markets have grown exponentially. They are no longer a hypothetical risk but an actual adversarial tool exploiting vulnerabilities you don't know exist.</p>
+
+    <h3>Red Teaming as Novel Threat Preparation</h3>
+    <p>Red teaming is practical for novel threat prep. You cannot predict every threat, but you can simulate an intelligent adversary. This operationalizes novel threats for balance. Red teaming applies deterrence principles within a game-theoretic structure using both known and novel threat possibilities to supplement findings.</p>
+
+    <div class="callout info">
+      <p><strong>The Balance Mechanism:</strong> When game-theoretic models show defenses becoming predictable, shift resources toward novel threat prep like red teaming. When deterrence analysis reveals insufficient credible capability against novel threats, invest in capabilities that signal credible responses even in unknown attack vectors. This balance is always dynamic and responsive to both game theory and deterrence theory.</p>
+    </div>
+
+    <h2>Implementation Framework</h2>
+
+    <h3>Strategic Assessment Requirements</h3>
+    <p>Balance can only be achieved through strategic assessment using a synthesized framework. Game theory tells us adversaries adapt, so static defenses fail. Deterrence theory tells us to maintain credible defense even when uncertain about threats. Together they show the need for adaptive defense that maintains deterrence for both known and novel threats.</p>
+
+    <div class="diagram">
+      <h4>Dynamic Resource Allocation Framework</h4>
+      <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- Central decision point -->
+        <circle cx="300" cy="200" r="60" fill="#252525" stroke="#ffd93d" stroke-width="3"/>
+        <text x="300" y="195" text-anchor="middle" fill="#ffd93d" font-size="13" font-weight="bold">Strategic</text>
+        <text x="300" y="210" text-anchor="middle" fill="#ffd93d" font-size="13" font-weight="bold">Assessment</text>
+        
+        <!-- Known Threats path -->
+        <rect x="50" y="50" width="140" height="100" fill="#252525" stroke="#ff3b3b" stroke-width="2" rx="8"/>
+        <text x="120" y="75" text-anchor="middle" fill="#ff3b3b" font-size="14" font-weight="bold">Known Threats</text>
+        <text x="120" y="95" text-anchor="middle" fill="#a0a0a0" font-size="11">Patching</text>
+        <text x="120" y="110" text-anchor="middle" fill="#a0a0a0" font-size="11">Signatures</text>
+        <text x="120" y="125" text-anchor="middle" fill="#a0a0a0" font-size="11">Best Practices</text>
+        
+        <!-- Novel Threats path -->
+        <rect x="410" y="50" width="140" height="100" fill="#252525" stroke="#ff3b3b" stroke-width="2" rx="8"/>
+        <text x="480" y="75" text-anchor="middle" fill="#ff3b3b" font-size="14" font-weight="bold">Novel Threats</text>
+        <text x="480" y="95" text-anchor="middle" fill="#a0a0a0" font-size="11">Red Teaming</text>
+        <text x="480" y="110" text-anchor="middle" fill="#a0a0a0" font-size="11">Threat Modeling</text>
+        <text x="480" y="125" text-anchor="middle" fill="#a0a0a0" font-size="11">Behavioral Detection</text>
+        
+        <!-- Game Theory input -->
+        <rect x="50" y="250" width="140" height="100" fill="#252525" stroke="#ffd93d" stroke-width="2" rx="8"/>
+        <text x="120" y="275" text-anchor="middle" fill="#ffd93d" font-size="14" font-weight="bold">Game Theory</text>
+        <text x="120" y="295" text-anchor="middle" fill="#a0a0a0" font-size="11">Adversary Adaptation</text>
+        <text x="120" y="310" text-anchor="middle" fill="#a0a0a0" font-size="11">Strategy Evolution</text>
+        <text x="120" y="325" text-anchor="middle" fill="#a0a0a0" font-size="11">Equilibrium Analysis</text>
+        
+        <!-- Deterrence Theory input -->
+        <rect x="410" y="250" width="140" height="100" fill="#252525" stroke="#ffd93d" stroke-width="2" rx="8"/>
+        <text x="480" y="275" text-anchor="middle" fill="#ffd93d" font-size="14" font-weight="bold">Deterrence Theory</text>
+        <text x="480" y="295" text-anchor="middle" fill="#a0a0a0" font-size="11">Credibility</text>
+        <text x="480" y="310" text-anchor="middle" fill="#a0a0a0" font-size="11">Incomplete Info</text>
+        <text x="480" y="325" text-anchor="middle" fill="#a0a0a0" font-size="11">Commitment</text>
+        
+        <!-- Arrows -->
+        <defs>
+          <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#ffd93d" />
+          </marker>
+        </defs>
+        
+        <path d="M 190 100 L 250 180" stroke="#ffd93d" stroke-width="2" fill="none" marker-end="url(#arrow1)"/>
+        <path d="M 410 100 L 350 180" stroke="#ffd93d" stroke-width="2" fill="none" marker-end="url(#arrow1)"/>
+        <path d="M 190 300 L 250 220" stroke="#ffd93d" stroke-width="2" fill="none" marker-end="url(#arrow1)"/>
+        <path d="M 410 300 L 350 220" stroke="#ffd93d" stroke-width="2" fill="none" marker-end="url(#arrow1)"/>
+      </svg>
+    </div>
+
+    <h3>Operational Requirements</h3>
+    <p>This synthesis framework demands strategic thinking but better addresses the root issue of staticity. To achieve this balance:</p>
+
+    <ul>
+      <li><strong>Track adversary behavior, not just vulnerabilities</strong> — Monitor how attackers adapt their tactics in response to your defenses</li>
+      <li><strong>Embrace incomplete information</strong> — Stop waiting for perfect threat intel and plan probabilistically</li>
+      <li><strong>Accept uncertainty as the condition</strong> — Build strategy around uncertainty rather than trying to eliminate it</li>
+      <li><strong>Maintain credible capability</strong> — Ensure adversaries believe you can detect and respond to both known and novel attacks</li>
+      <li><strong>Dynamic resource allocation</strong> — Shift resources between known and novel threat preparation based on strategic assessment</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>Cybersecurity is not a technical issue—it is strategic and happens to involve technology. The challenge is not to develop better tech but to develop resource allocation strategy that can be upheld during uncertainty against adaptive adversaries.</p>
+
+    <p>Game theory provides the mathematical framework for this, showing how strategies evolve through repetitive interaction and predicting equilibrium outcomes in strategic conflict. However, it assumes complete information and perfect rationality—two conditions that never exist in real environments.</p>
+
+    <p>Cold War deterrence theory provides principles for maintaining credible threats through incomplete information, addressing commitment, signaling, and managing uncertainty. However, it does not model how strategies adapt over time through learning.</p>
+
+    <p>The synthesis of these two creates a framework for cybersecurity that neither field can provide independently. Balance between known and novel threats can only be achieved through strategic assessment using this synthesized framework. This balance will always be dynamic and responsive to both game theory and deterrence theory principles.</p>
+
+    <div class="callout">
+      <h3>Final Framework Summary</h3>
+      <p><strong>When game-theoretic models show defenses becoming predictable:</strong> Shift resources toward novel threat preparation like red teaming.</p>
+      <p><strong>When deterrence analysis reveals insufficient credible capability:</strong> Invest in capabilities that signal credible responses even in unknown attack vectors.</p>
+      <p><strong>The result:</strong> A dynamic, adaptive defense strategy that maintains effectiveness against both known and novel threats under conditions of uncertainty.</p>
+    </div>
+
+    <div class="bibliography">
+      <h2>Works Cited</h2>
+      <ul>
+        <li>Achen, Christopher H., and Duncan Snidal. "Rational Deterrence Theory and Comparative Case Studies." <em>World Politics</em> 41.2 (1989): 143–69. Web.</li>
+        <li><em>The Art of Strategy: A Game Theorist's Guide to Success in Business and Life</em>. London: THE World Universities Insights Limited, 2008. Print.</li>
+        <li>Axelrod, Robert M. <em>The Evolution of Cooperation</em>. New York: Basic Books, 2006. Print.</li>
+        <li>Brams, Steven J. <em>Superpower Games: Applying Game Theory to Superpower Conflict</em>. New Haven: Yale University Press, 1985. Print.</li>
+        <li>Chenoweth, Erica, and Maria J. Stephan. <em>Why Civil Resistance Works: The Strategic Logic of Nonviolent Conflict</em>. New York: Columbia University Press, 2011. Web.</li>
+        <li>Do, Cuong T., et al. <em>Game Theory for Cyber Security and Privacy</em>. 50 Vol. Association for Computing Machinery (ACM), 2019. Web.</li>
+        <li>Hausken, Kjell, and O. R. Applications. <em>Strategic Defense and Attack for Series and Parallel Reliability Systems</em>. 186 Vol. Elsevier BV, 2007. Web.</li>
+        <li>Johnson, Benjamin, Rainer Böhme, and Jens Grossklags. <em>Security Games with Market Insurance</em>. Web.</li>
+        <li>Kahn, Herman. <em>Thinking about the Unthinkable</em>. W135. Vol. New York: Avon, 1968. Web.</li>
+        <li>Maskin, Eric. <em>Nash Equilibrium and Welfare Optimality</em>. Web.</li>
+        <li>Mitnick, Kevin D., William L. Simon, and Steve Wozniak. <em>The Art of Deception: Controlling the Human Element of Security</em>. Wiley, 2011. Web.</li>
+        <li>Musman, Scott, and Andrew Turner. <em>A Game Theoretic Approach to Cyber Security Risk Management</em>. 15 Vol. SAGE Publications, 2017. Web.</li>
+        <li>Rapoport, Anatol, and Albert M. Chammah. <em>Prisoner's Dilemma</em>. Place of publication not identified: University of Michigan Press, 1965. Print.</li>
+        <li>Roy, Sankardas, et al. <em>A Survey of Game Theory as Applied to Network Security</em>. Web.</li>
+        <li>Schelling, Thomas C. <em>The Strategy of Conflict</em>. Cambridge, Mass: Harvard University Press, 1963. Print.</li>
+        <li>Schelling, T.C. <em>Prospectus for a Reorientation of Game Theory</em>. 1958. Web.</li>
+        <li>Shostack, Adam, and Chris Wysopal. <em>Threat Modeling: Designing for Security</em>. 1st ed. Indianapolis: Wiley, 2014. Print.</li>
+        <li>Theodorakopoulos, George, and John S. Baras. <em>Game Theoretic Modeling of Malicious Users in Collaborative Networks</em>. 26 Vol. Institute of Electrical and Electronics Engineers (IEEE), 2007. Web.</li>
+        <li>Van Dijk, Marten, et al. <em>FlipIt: The Game of "Stealthy Takeover"</em>. 26 Vol. Springer Science and Business Media LLC, 2012. Web.</li>
+        <li>"What Is Cyber Threat Intelligence?" <em>Microsoft Security</em>. Web. Oct 28, 2025. www.microsoft.com/en-us/security/business/security-101/what-is-cyber-threat-intelligence.</li>
+        <li>Wiem Tounsi, and Helmi Rais. "Tounsi - Threat Intelligence | PDF | Security | Computer Security." <em>ScienceDirect</em> 72 (2017): 212–33. Web. Oct 28, 2025.</li>
+        <li>Zenko, Micah. <em>Red Team: How to Succeed by Thinking Like the Enemy</em>. 1st ed. New York: Basic Books, a member of the Perseus Books Group, 2015. Print.</li>
+      </ul>
+    </div>
+  </article>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
