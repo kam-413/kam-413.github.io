@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects Archive | Kaitlyn Mohr</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #252525;
+      --text-primary: #f5f5f5;
+      --text-secondary: #d0d0d0;
+      --accent-red: #ff3b3b;
+      --accent-yellow: #ffd93d;
+      --border: #333;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.9);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent-red);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 120px auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .filters {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .filter-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .filter-label {
+      color: var(--accent-yellow);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .filter-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-tag {
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-tag:hover {
+      border-color: var(--accent-red);
+      color: var(--text-primary);
+    }
+
+    .filter-tag.active {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      color: var(--bg-primary);
+    }
+
+    .sort-select {
+      padding: 0.75rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sort-select:hover {
+      border-color: var(--accent-yellow);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-red);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(255, 59, 59, 0.1);
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-card.hidden {
+      display: none;
+    }
+
+    .card-date {
+      color: var(--accent-red);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .project-card p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-secondary);
+    }
+
+    .no-results.hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="back-link">← Back to Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Projects</h1>
+      <p class="subtitle">Security infrastructure, automation, and hands-on technical implementations</p>
+    </div>
+
+    <div class="filters">
+      <div class="filter-section">
+        <label class="filter-label">Filter by Technology</label>
+        <div class="filter-tags" id="topicFilters">
+          <span class="filter-tag" data-tag="all">All</span>
+          <span class="filter-tag" data-tag="Proxmox">Proxmox</span>
+          <span class="filter-tag" data-tag="Linux">Linux</span>
+          <span class="filter-tag" data-tag="Windows Server">Windows Server</span>
+          <span class="filter-tag" data-tag="AI">AI</span>
+          <span class="filter-tag" data-tag="Operations">Operations</span>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <label class="filter-label">Sort by</label>
+        <select class="sort-select" id="sortSelect">
+          <option value="date-desc">Newest First</option>
+          <option value="date-asc">Oldest First</option>
+          <option value="title">Title A-Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Project items will be populated here -->
+    </div>
+
+    <div class="no-results hidden" id="noResults">
+      <h3>No projects found</h3>
+      <p>Try adjusting your filters</p>
+    </div>
+  </main>
+
+  <script>
+    const projectItems = [
+      {
+        title: "Virtualized Security Lab",
+        description: "Built and secured infrastructure using Proxmox hosting SQL, application, mail, and web services with automated monitoring and alerting.",
+        date: "2025-08-30",
+        tags: ["Proxmox", "Linux", "Windows Server"],
+        url: "#"
+      },
+      {
+        title: "AI War Room",
+        description: "Applying AI tools to simulated real-world operational and decision-making scenarios in collaborative environments.",
+        date: "2025-09-15",
+        tags: ["AI", "Operations"],
+        url: "#"
+      }
+    ];
+
+    let activeTag = 'all';
+    let sortBy = 'date-desc';
+
+    function renderProjects() {
+      const grid = document.getElementById('projectsGrid');
+      const noResults = document.getElementById('noResults');
+      
+      let filtered = projectItems.filter(item => {
+        if (activeTag === 'all') return true;
+        return item.tags.includes(activeTag);
+      });
+
+      filtered.sort((a, b) => {
+        if (sortBy === 'date-desc') {
+          return new Date(b.date) - new Date(a.date);
+        } else if (sortBy === 'date-asc') {
+          return new Date(a.date) - new Date(b.date);
+        } else if (sortBy === 'title') {
+          return a.title.localeCompare(b.title);
+        }
+      });
+
+      grid.innerHTML = '';
+      
+      if (filtered.length === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        
+        filtered.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+          card.onclick = () => window.location.href = item.url;
+          
+          const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long'
+          });
+          
+          card.innerHTML = `
+            <div class="card-date">${formattedDate}</div>
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <div class="card-tags">
+              ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          `;
+          
+          grid.appendChild(card);
+        });
+      }
+    }
+
+    document.getElementById('topicFilters').addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-tag')) {
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+          tag.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        activeTag = e.target.dataset.tag;
+        renderProjects();
+      }
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      sortBy = e.target.value;
+      renderProjects();
+    });
+
+    document.querySelector('[data-tag="all"]').classList.add('active');
+    renderProjects();
+  </script>
+</body>
+</html>
