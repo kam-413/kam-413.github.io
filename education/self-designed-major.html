@@ -123,8 +123,15 @@
       display: flex;
       gap: 1rem;
       margin-bottom: 3rem;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 2px solid transparent;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-amber), transparent) bottom/100% 2px no-repeat;
       overflow-x: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .tab {
@@ -150,6 +157,7 @@
       background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));
       transform: scaleX(0);
       transition: transform 0.3s;
+      box-shadow: 0 0 10px var(--glow-amber);
     }
 
     .tab:hover {
@@ -348,6 +356,43 @@
     .check { color: var(--accent-amber); font-weight: 700; }
     .cross { color: var(--accent-red); font-weight: 700; }
 
+    /* Benchmark Cards */
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .benchmark-card {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+      display: block;
+    }
+
+    .benchmark-card:hover {
+      border-color: var(--accent-amber);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px var(--glow-amber);
+    }
+
+    .benchmark-card h4 {
+      color: var(--accent-amber);
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .benchmark-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
     /* Progress Timeline */
     .timeline {
       position: relative;
@@ -448,10 +493,10 @@
     </div>
 
     <div class="tabs">
-      <button class="tab active" onclick="switchTab('overview')">Overview</button>
-      <button class="tab" onclick="switchTab('curriculum')">Curriculum</button>
-      <button class="tab" onclick="switchTab('comparison')">Comparison</button>
-      <button class="tab" onclick="switchTab('why-sdn')">Why SDN</button>
+      <button class="tab active" data-tab="overview">Overview</button>
+      <button class="tab" data-tab="curriculum">Curriculum</button>
+      <button class="tab" data-tab="comparison">Comparison</button>
+      <button class="tab" data-tab="why-sdn">Why SDN</button>
     </div>
 
     <!-- Overview Tab -->
@@ -715,6 +760,20 @@
           <li>Potential second degree or graduate program in cybersecurity</li>
         </ul>
         <p><strong>The SDN approach eliminates this gap by treating cybersecurity as the primary discipline from day one.</strong></p>
+      </div>
+
+      <h2>Benchmarked Against These Programs</h2>
+      <p>The SDN Cybersecurity curriculum was designed using established cybersecurity programs as benchmarks to ensure industry-aligned competencies:</p>
+      
+      <div class="benchmark-grid">
+        <a href="https://www.ohio.edu/scripps-college/its/cybersecurity" target="_blank" class="benchmark-card">
+          <h4>Ohio University</h4>
+          <p>Information & Telecommunication Systems - Cybersecurity Track (B.S.)</p>
+        </a>
+        <a href="https://www.cincinnatistate.edu/academics/divisions/business-technologies/programs/computer-network-engineering-technology-cyber-security-major/" target="_blank" class="benchmark-card">
+          <h4>Cincinnati State</h4>
+          <p>Computer Network Engineering Technology - Cyber-Security Major</p>
+        </a>
       </div>
     </div>
 
