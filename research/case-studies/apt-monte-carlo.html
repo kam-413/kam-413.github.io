@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probabilistic Modeling of APT Cyberattacks | Kaitlyn Mohr</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #252525;
+      --text-primary: #f5f5f5;
+      --text-secondary: #e5e5e0;
+      --accent-red: #ff4757;
+      --accent-amber: #ffa502;
+      --border: #333;
+      --glow-red: rgba(255, 71, 87, 0.3);
+      --glow-amber: rgba(255, 165, 2, 0.3);
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    p, li {
+      text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse at 20% 30%, var(--glow-red) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, var(--glow-amber) 0%, transparent 50%),
+        var(--bg-primary);
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.7);
+      border-bottom: 1px solid rgba(255, 71, 87, 0.2);
+      z-index: 1000;
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+    }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent-amber);
+      text-shadow: 0 0 10px var(--glow-amber);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 120px auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .meta-label {
+      color: var(--accent-amber);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .tag {
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 3rem 0 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent-red);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--accent-amber);
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      backdrop-filter: blur(5px);
+    }
+
+    ul, ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+      color: var(--text-secondary);
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem 1rem 3rem;
+      border-radius: 6px;
+      backdrop-filter: blur(5px);
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Math equations */
+    .equation {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      backdrop-filter: blur(10px);
+    }
+
+    .equation-label {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+
+    /* Highlight boxes */
+    .highlight-box {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-amber);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .highlight-box h3 {
+      margin-top: 0;
+    }
+
+    /* Stage boxes */
+    .stage-box {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .stage-box h4 {
+      color: var(--accent-amber);
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    /* Image placeholders */
+    .figure {
+      background: rgba(26, 26, 26, 0.6);
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .figure-label {
+      color: var(--accent-red);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .figure-instruction {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-style: italic;
+      background: rgba(255, 71, 87, 0.1);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+
+    .figure img {
+      max-width: 100%;
+      border-radius: 6px;
+      margin: 1rem 0;
+    }
+
+    .figure-caption {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    thead {
+      background: var(--bg-tertiary);
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      color: var(--accent-amber);
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(37, 37, 37, 0.6);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .report-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <canvas id="particles"></canvas>
+
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="back-link">← Back to Research</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <div class="report-meta">
+        <div class="meta-item">
+          <span class="meta-label">Date:</span>
+          <span>October 18, 2025</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Category:</span>
+          <span>Case Study</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Course:</span>
+          <span>MTH 119: Statistics I</span>
+        </div>
+      </div>
+      <h1>Probabilistic Modeling of APT Cyberattacks: A Monte Carlo Simulation</h1>
+      <p class="subtitle">Modeling discrete random variables in adaptive defense scenarios</p>
+      <div class="tags">
+        <span class="tag">Monte Carlo</span>
+        <span class="tag">Probability Distribution</span>
+        <span class="tag">APT Modeling</span>
+        <span class="tag">Cybersecurity</span>
+      </div>
+    </div>
+
+    <h2>Introduction and Context</h2>
+    <p>This analysis examines the probability distribution of attack scores in a simulated Advanced Persistent Threat (APT) cyberattack scenario with adaptive defense mechanisms. An APT is a sophisticated, multi-stage cyberattack typically conducted by well-funded adversaries such as nation-state actors or organized cybercrime groups. These attacks occur in several phases: initial compromise through social engineering, lateral movement through the network, privilege escalation to gain administrative access, and finally, data exfiltration.</p>
+
+    <p>The discrete random variable in this study, denoted as <strong>X</strong>, represents the total point score an attacker achieves across all four stages of the attack kill chain. This variable was chosen for its complexity and real-world relevance to cybersecurity risk assessment. Unlike basic probability examples involving coin flips or dice rolls, this scenario models conditional probabilities—where outcomes in later stages depend on the success or failure of earlier stages. The inclusion of an adaptive defense system, which strengthens security in response to detected attack activity, creates a dynamic probability environment that reflects actual cybersecurity operations.</p>
+
+    <p>Because calculating exact probabilities for this multi-stage conditional scenario is mathematically complex, this analysis employs a Monte Carlo simulation with 1,000 independent trial runs. Monte Carlo simulation is a computational method that uses repeated random sampling to approximate numerical results for complex probabilistic systems. Each trial simulates attacker actions across the four stages—phishing, lateral movement, privilege escalation, and data exfiltration—and the frequencies of each total score are used to build an empirical probability distribution approximating the true theoretical one.</p>
+
+    <h2>Defining the Discrete Random Variable</h2>
+    <p>A discrete random variable is one whose possible values are countable and distinct, rather than forming a continuous range. For example, the number of heads in three coin flips can only be 0, 1, 2, or 3—never 1.5.</p>
+
+    <p>In this study, <strong>X</strong> is discrete because attack scores are calculated by summing integer point values from discrete events (successful phishing attempts, lateral movements, escalations, etc.). Therefore, X can only take whole-number values within a finite range.</p>
+
+    <h3>Formal Definition of X</h3>
+    <p>The variable X is defined as:</p>
+
+    <div class="equation">
+      X = (Stage 1 Score) + (Stage 2 Score) + (Stage 3 Score) + (Stage 4 Score)
+    </div>
+
+    <p>where:</p>
+    <ul>
+      <li><strong>Stage 1 (S₁):</strong> (number of successful phishing clicks) × 2 points per click</li>
+      <li><strong>Stage 2 (S₂):</strong> (number of successful lateral movements) × 3 points per movement</li>
+      <li><strong>Stage 3 (S₃):</strong> (successful privilege escalations × 5) + 10 bonus points if Domain Admin is achieved</li>
+      <li><strong>Stage 4 (S₄):</strong> (successful data exfiltrations × 8) + 15 points for each high-value or critical exfiltration</li>
+    </ul>
+
+    <p>Because these are integer-based increments (2, 3, 5, 8, 10, 15), X can only be a whole number. It is quantitative because it represents measurable values that can be meaningfully added or averaged.</p>
+
+    <h3>Range of X</h3>
+    <p>The theoretical sample space of X ranges from 0 to 148 points. The minimum value (X = 0) occurs when the attack fails completely in Stage 1, with all phishing attempts unsuccessful. The theoretical maximum (X = 148) would require perfect success in all stages: S₁ = 12, S₂ = 18, S₃ = 40, and S₄ = 78.</p>
+
+    <p>However, not all integer values between 0 and 148 are practically achievable. In the 1,000 Monte Carlo trials, the observed range was 0 to 29 points, showing that adaptive defenses make high scores extremely rare. Scores above 30 are theoretically possible but occur with negligible probability.</p>
+
+    <h2>The Four Stages of the Attack</h2>
+
+    <div class="stage-box">
+      <h4>Stage 1: Initial Compromise</h4>
+      <p>In Stage 1, the attacker sends phishing emails to six employees in different roles. Each employee has an independent click probability: IT Administrator: 10%, CEO: 15%, Finance: 20%, HR: 30%, Intern: 45%, and Creative Department: 70%. These reflect realistic vulnerability differences—IT admins are trained and cautious, while creative teams interact more with external content.</p>
+      
+      <p>Because each event is independent, the number of successful phishes follows a Poisson Binomial distribution (a generalization of the binomial distribution for unequal probabilities). Each success grants 2 points. Adaptive defense levels rise as more employees click, with higher alert levels reducing success probabilities in later stages. If no employees click, the attack ends (X = 0). Thus, P(X = 0) represents total failure at Stage 1.</p>
+    </div>
+
+    <div class="stage-box">
+      <h4>Stage 2: Lateral Movement</h4>
+      <p>Stage 2 models how the attacker moves deeper into the network after gaining initial access. The number of lateral movement attempts depends on Stage 1 success: 1–2 phishes = 3 attempts, 3–4 phishes = 5 attempts, and 5–6 phishes = 6 attempts. Each target system has its own compromise probability (e.g., File Server 40%, Database 30%, Domain Controller 20%). Alert levels reduce these probabilities by 15–30%. Detection during movement raises the alert level again, further lowering success rates. Each successful lateral movement earns 3 points, with a maximum of 18 possible.</p>
+    </div>
+
+    <div class="stage-box">
+      <h4>Stage 3: Privilege Escalation</h4>
+      <p>Stage 3 represents attempts to gain administrator-level control. The number of escalation attempts equals the number of successful lateral movements. Each system type has a unique escalation probability (File Server 50%, Database 35%, Domain Controller 25%, etc.). If the Domain Controller escalation succeeds, the attacker automatically gains full admin access across all systems and receives a 10-point bonus. Detection probabilities rise with each alert level. Each successful escalation grants 5 points, with a possible total of 40.</p>
+    </div>
+
+    <div class="stage-box">
+      <h4>Stage 4: Data Exfiltration</h4>
+      <p>In Stage 4, the attacker attempts to steal data. The number of attempts depends on successful escalations from Stage 3, though a minimum of one attempt is allowed even if none succeed. Detection in Stage 3 can limit this to two attempts ("containment countdown"). Exfiltration success probabilities depend on data type: Low-value: 60%, Medium-value: 40%, High-value: 25%, and Critical: 15%. Detection from Data Loss Prevention (DLP) systems scales with alert level. Each successful exfiltration earns 8 points; high-value data earns 15.</p>
+    </div>
+
+    <h2>Probability Distribution</h2>
+    <p>The probability distribution of X describes how likely each attack score is. Since enumerating all possible paths analytically is infeasible, this study uses the simulation results. Each of the 1,000 trials produced one value of X. The probability P(X = k) was estimated as:</p>
+
+    <div class="equation">
+      P(X = k) = (Number of trials where X = k) / 1,000
+    </div>
+
+    <p>Results show that X = 6 occurred most frequently (P = 0.155). This corresponds to moderate initial compromise and immediate detection. X = 0 occurred in 1.6% of trials, indicating complete failure. Cumulative probability P(X ≤ 10) = 0.722, meaning 72.2% of simulated attacks scored 10 or fewer points. The distribution is right-skewed, concentrated below 15 points, with a long thin tail extending to 29.</p>
+
+    <div class="figure">
+      <span class="figure-label">Figure 1: Frequency Distribution</span>
+      <div class="figure-instruction">
+        INSERT IMAGE HERE: Appendix A.1 - Frequency by Score Histogram<br>
+        To add your image: Replace this entire div with:<br>
+        &lt;img src="path/to/frequency-histogram.png" alt="Frequency Distribution"&gt;
+      </div>
+      <p class="figure-caption">Histogram showing frequency of attack scores across 1,000 Monte Carlo trials. Peak frequency occurs at X = 6, with rapid decline beyond X = 15.</p>
+    </div>
+
+    <h2>Expected Value</h2>
+    <p>The expected value (E[X]) represents the long-run average score:</p>
+
+    <div class="equation">
+      E[X] = Σ (x × P(X = x))
+    </div>
+
+    <p>Using simulation frequencies, <strong>E[X] = 8.964 points</strong>. Our interpretation of this is that of repeated attacks, the average total score would be about 9 points—just 6.1% of the 148-point maximum. If each point equates to $10,000 in damages, the expected loss per attack is approximately $89,640. Stage contributions average 5 points from Stage 1, 3 from Stage 2, 1 from Stage 3, and nearly 0 from Stage 4. The expected value does not represent the most frequent outcome (mode = 6) but the long-run mean outcome.</p>
+
+    <h2>Variance and Standard Deviation</h2>
+    <p>Variance (σ²) measures spread around the mean, while standard deviation (σ) is its square root:</p>
+
+    <div class="equation">
+      σ² = 39.436 points²<br>
+      σ = 6.280 points
+    </div>
+
+    <p>This indicates moderate variability: most scores fall within one standard deviation (approximately 3 to 15 points). About 70% of attacks land in this range, consistent with the empirical rule (68–95–99.7 rule). The coefficient of variation (CV = σ / μ = 70%) confirms moderate relative variability—attacks vary but are not chaotic.</p>
+
+    <h2>Descriptive Statistics</h2>
+    <div class="highlight-box">
+      <h3>Key Statistical Measures</h3>
+      <ul>
+        <li><strong>Mode:</strong> 6 points (most common outcome)</li>
+        <li><strong>Median:</strong> 7 points (50% of attacks ≤ 7)</li>
+        <li><strong>Quartiles:</strong> Q₁ = 5, Q₂ = 7, Q₃ = 12</li>
+        <li><strong>Interquartile Range (IQR):</strong> 7 points</li>
+        <li><strong>90th Percentile:</strong> 20 points</li>
+      </ul>
+      <p>About half of all attacks scored between 5 and 12 points, representing partial compromise with early containment. High-damage attacks (≥21) were rare, occurring in only 10% of simulations.</p>
+    </div>
+
+    <h2>Cumulative Distribution Function (CDF)</h2>
+    <p>The CDF, F(X) = P(X ≤ x), rises steeply from 0 to 0.82 within the first 15 points, showing that most probability mass lies in this low range. Beyond X = 30, the curve flattens, indicating near-zero probability for higher scores. This convex shape (rapid rise, slow tail) is typical of a right-skewed distribution.</p>
+
+    <div class="figure">
+      <span class="figure-label">Figure 2: Cumulative Distribution Function</span>
+      <div class="figure-instruction">
+        INSERT IMAGE HERE: Appendix A.2 - CDF Line Graph<br>
+        To add your image: Replace this entire div with:<br>
+        &lt;img src="path/to/cdf-graph.png" alt="Cumulative Distribution Function"&gt;
+      </div>
+      <p class="figure-caption">Cumulative distribution showing steep initial rise from 0-15 points, gradual increase to 30, and plateau beyond 30, indicating extremely low probability of high-damage attacks.</p>
+    </div>
+
+    <h2>No-Defense Comparison</h2>
+    <p>To measure the impact of adaptive defenses, a baseline simulation without defenses was run. Results showed that adaptive defenses reduced average damage by 23.6% and made high scores dramatically rarer. Interestingly, P(X = 0) decreased from 7.4% (no defense) to 1.6% (with defense). Adaptive systems allow minor initial compromises but contain attacks early.</p>
+
+    <div class="figure">
+      <span class="figure-label">Figure 3: Defense Comparison</span>
+      <div class="figure-instruction">
+        INSERT IMAGE HERE: Appendix A.3 - Defense vs. No-Defense Overlay<br>
+        To add your image: Replace this entire div with:<br>
+        &lt;img src="path/to/defense-comparison.png" alt="Defense Impact Comparison"&gt;
+      </div>
+      <p class="figure-caption">Overlayed comparison showing with defenses (sharply peaked, right-skewed) versus without defenses (widely spread with long tail extending to X = 60+). Adaptive defenses reduce mean score by approximately 10 points.</p>
+    </div>
+
+    <h2>Real-World Implications</h2>
+    <p>Although simplified, this simulation reflects real-world cybersecurity dynamics. Real APTs—such as APT28, APT29, and Lazarus Group—follow similar multi-stage processes. This probability model can be used for risk quantification, translating technical security data into financial terms that decision-makers understand. For instance, reducing the 90th percentile loss from $480,000 to $300,000 through adaptive defenses could justify investments in detection systems or lower-cost cyber insurance.</p>
+
+    <div class="highlight-box">
+      <h3>Strategic Recommendations</h3>
+      <p>Findings indicate that organizations should prioritize:</p>
+      <ol>
+        <li>Strong email security and anti-phishing training (Stage 1–2 transition)</li>
+        <li>User behavior analytics for detecting lateral movement</li>
+        <li>Network segmentation to limit internal spread</li>
+        <li>Fast detection and response over preventing all initial compromises</li>
+      </ol>
+      <p>Preventing all initial compromises is less effective than ensuring fast detection and response to limit total damage.</p>
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>This model demonstrates how adaptive defenses reshape the probability distribution of cyberattack outcomes. While rare, high-damage events still exist, their likelihood decreases sharply. Most attacks end with minimal impact due to early containment.</p>
+
+    <p>Though simplified and based on fixed probabilities, the model effectively illustrates how probabilistic methods and Monte Carlo simulations can quantify cybersecurity performance. It is best viewed as a conceptual framework—one that clarifies where defenses matter most and how mathematical modeling supports real-world risk management.</p>
+  </main>
+
+  <script>
+    // Particle System
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+    
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = Math.random() > 0.5 ? 'rgba(255, 71, 87, 0.6)' : 'rgba(255, 165, 2, 0.6)';
+      }
+      
+      update() {
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 200) {
+          this.x += dx * 0.002;
+          this.y += dy * 0.002;
+        }
+        
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+      }
+    }
+    
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push(new Particle());
+    }
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
