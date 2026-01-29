@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybercrime Victimization and Self-Protection Confidence | Kaitlyn Mohr</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #252525;
+      --text-primary: #f5f5f5;
+      --text-secondary: #e5e5e0;
+      --accent-red: #ff4757;
+      --accent-amber: #ffa502;
+      --border: #333;
+      --glow-red: rgba(255, 71, 87, 0.3);
+      --glow-amber: rgba(255, 165, 2, 0.3);
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    p, li {
+      text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse at 20% 30%, var(--glow-red) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, var(--glow-amber) 0%, transparent 50%),
+        var(--bg-primary);
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.7);
+      border-bottom: 1px solid rgba(255, 71, 87, 0.2);
+      z-index: 1000;
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+    }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent-amber);
+      text-shadow: 0 0 10px var(--glow-amber);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 120px auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .meta-label {
+      color: var(--accent-amber);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .tag {
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 3rem 0 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent-red);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--accent-amber);
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      backdrop-filter: blur(5px);
+    }
+
+    ul, ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+      color: var(--text-secondary);
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem 1rem 3rem;
+      border-radius: 6px;
+      backdrop-filter: blur(5px);
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    em {
+      color: var(--accent-amber);
+      font-style: italic;
+    }
+
+    /* Math equations */
+    .equation {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      backdrop-filter: blur(10px);
+    }
+
+    .equation-label {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+
+    /* Highlight boxes */
+    .highlight-box {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-amber);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .highlight-box h3 {
+      margin-top: 0;
+    }
+
+    .hypothesis-box {
+      background: rgba(255, 165, 2, 0.1);
+      border: 1px solid var(--accent-amber);
+      border-left: 4px solid var(--accent-amber);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .hypothesis-box p {
+      background: transparent;
+      padding: 0;
+      margin: 0.5rem 0;
+    }
+
+    /* Image placeholders */
+    .figure {
+      background: rgba(26, 26, 26, 0.6);
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .figure-label {
+      color: var(--accent-red);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .figure-instruction {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-style: italic;
+      background: rgba(255, 71, 87, 0.1);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+
+    .figure img {
+      max-width: 100%;
+      border-radius: 6px;
+      margin: 1rem 0;
+    }
+
+    .figure-caption {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    thead {
+      background: var(--bg-tertiary);
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      color: var(--accent-amber);
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(37, 37, 37, 0.6);
+    }
+
+    .table-caption {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-top: 1rem;
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .report-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <canvas id="particles"></canvas>
+
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="back-link">← Back to Research</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <div class="report-meta">
+        <div class="meta-item">
+          <span class="meta-label">Date:</span>
+          <span>December 2, 2025</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Category:</span>
+          <span>Case Study</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Course:</span>
+          <span>MTH 119: Statistics I</span>
+        </div>
+      </div>
+      <h1>Cybercrime Victimization and Self-Protection Confidence: A Hypothesis Testing Analysis</h1>
+      <p class="subtitle">Examining the relationship between cyber victimization and perceived ability to protect against future threats</p>
+      <div class="tags">
+        <span class="tag">Hypothesis Testing</span>
+        <span class="tag">Z-Test</span>
+        <span class="tag">Cybercrime Psychology</span>
+        <span class="tag">Statistical Inference</span>
+      </div>
+    </div>
+
+    <h2>Introduction</h2>
+    <p>Cybercrime is on the rise in our technical world, and it's no surprise that finding cybercrime is relatively easy in our digital age. From phishing, identity theft, or account hacking, cybercrime comes in all shapes and forms and is more common than one would imagine. The research question this paper aims to address is: <strong>"Does experiencing cybercrime change how people view their ability to protect themselves?"</strong></p>
+
+    <p>The answer could go either way, as it could be learned helplessness or learned vigilance. The research on this is mixed. Some studies find victims experience reduced confidence and harm (The Open University, 2020), while others suggest awareness programs can empower individuals post-victimization (Cybersecurity & Infrastructure Security Agency, 2025).</p>
+
+    <p>The main test variable, qd15_5 (Perceived Ability to Protect Against Cybercrime), will be compared with a binary score called Victim (1 for experienced cybercrime, 0 for no cybercrime experienced). This compared the victims of at least one cybercrime to the general population that either have or have not had that experience. We want to test if victims differ in self-protection confidence compared to individuals who might or might not be victims. This study tests whether individuals who have experienced cybercrime differ from the general population in their perceived ability to protect themselves against future cyber threats, with the hypothesis that victimization experience significantly influences self-protection confidence.</p>
+
+    <h2>Methods</h2>
+
+    <h3>Participants</h3>
+    <p>These participants came from the Gesellschaft Sozialwissenschaftlicher Infrastruktureinrichtungen e.V (GESIS), or the Leibniz Institute for the Social Sciences Eurobarometer 90.2 (2018), titled ZA7488 Version 2.0.0 or <em>Europeans' Attitudes Toward Internet Security</em>. The total population for this sample is <em>n</em> = 20,339.</p>
+
+    <p>The variables used here are:</p>
+    <ul>
+      <li>qd10_1: Cybercrime type - Fraudulent email/phone call</li>
+      <li>qd10_2: Cybercrime type - Purchase Fraud</li>
+      <li>qd10_3: Cybercrime type - Cyber Attacks</li>
+      <li>qd10_4: Cybercrime type - Malicious Software</li>
+      <li>qd10_5: Cybercrime type - Identity Theft</li>
+      <li>qd10_8: Cybercrime type - Account Being Hacked</li>
+      <li>qd10_9: Cybercrime type - Banking Fraud Online</li>
+      <li>qd10_10: Cybercrime type - Ransomware</li>
+      <li>qd15_5: Ability to protect yourself sufficiently from Cybercrime</li>
+    </ul>
+
+    <h3>Materials</h3>
+    <p>A binary variable was created to represent individuals who have or have not been a victim to the types of cybercrime listed above. If any of the variables had an answer greater than or equal to one, the victim variable got a 1. If not, no answer. Our final victim sample was <em>n</em> = 21,179 (77.5%) of the original population.</p>
+
+    <h3>Procedure</h3>
+    <p>A one-sample z-test was run to analyze the main hypothesis. The population parameters (μ = 2.22, σ = 0.963, <em>n</em> = 23,258) were cut down to smaller numbers (μ = 2.12, σ = 0.889, <em>n</em> = 20,389) for those who answered the qd15_5 question (victims only). This was a two-tailed test, as no direction was given more possibility to predict, with significance levels of α = 0.05 and α = 0.01.</p>
+
+    <div class="hypothesis-box">
+      <h4>Hypotheses</h4>
+      <p><strong>H₀:</strong> μ<sub>victims</sub> = 2.22 (Victims have the same mean confidence as the general population)</p>
+      <p><strong>H₁:</strong> μ<sub>victims</sub> ≠ 2.22 (Victims have different mean confidence than the general population)</p>
+    </div>
+
+    <h2>Results</h2>
+
+    <h3>Descriptive Statistics</h3>
+    <p>The population (μ = 2.22, σ = 0.963, <em>n</em> = 23,258) compared against the victim sample (x̄ = 2.12, <em>n</em> = 20,389). Victims scored 0.10 points lower on the scale of 1 (Most confident) to 5 (Least confident).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Group</th>
+          <th>N</th>
+          <th>Mean</th>
+          <th>SD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Full Population</strong></td>
+          <td>23,258</td>
+          <td>2.22</td>
+          <td>0.963</td>
+        </tr>
+        <tr>
+          <td><strong>Victims</strong></td>
+          <td>20,389</td>
+          <td>2.12</td>
+          <td>0.889</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-caption">Table 1: Descriptive statistics comparing full population to cybercrime victims. Victims scored 0.10 points lower (more confident) on the 5-point scale.</p>
+
+    <h3>Test Statistics</h3>
+    <p>Our standard error was calculated using:</p>
+
+    <div class="equation">
+      SE<sub>x̄</sub> = σ / √n = 0.963 / √20,389 = 0.00674
+    </div>
+
+    <p>Using this, we calculated our z-test statistic:</p>
+
+    <div class="equation">
+      z = (x̄ - μ) / SE = (2.12 - 2.22) / 0.00674 = -14.837
+    </div>
+
+    <p>This makes our p-value <strong>p < 0.001</strong>. This is a very low p-value, signifying these findings are statistically significant.</p>
+
+    <h3>Critical Values & Decisions</h3>
+    <p>At α = 0.05, we use the critical values ±1.960. At α = 0.01, we use the critical values ±2.576. Because our test statistic exceeds both of these critical values, we <strong>reject H₀ at both significance levels</strong>.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Statistic</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Test Statistic (z)</strong></td>
+          <td>-14.837</td>
+        </tr>
+        <tr>
+          <td><strong>Standard Error</strong></td>
+          <td>0.00674</td>
+        </tr>
+        <tr>
+          <td><strong>P-value</strong></td>
+          <td>< 0.001</td>
+        </tr>
+        <tr>
+          <td><strong>Critical value (α = 0.05)</strong></td>
+          <td>±1.960</td>
+        </tr>
+        <tr>
+          <td><strong>Critical value (α = 0.01)</strong></td>
+          <td>±2.576</td>
+        </tr>
+        <tr>
+          <td><strong>Decision (α = 0.05)</strong></td>
+          <td>Reject H₀</td>
+        </tr>
+        <tr>
+          <td><strong>Decision (α = 0.01)</strong></td>
+          <td>Reject H₀</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-caption">Table 2: Hypothesis test results showing test statistic far exceeds critical values at both significance levels, leading to rejection of the null hypothesis.</p>
+
+    <div class="figure">
+      <span class="figure-label">Figure 1: Distribution of Sample Means</span>
+      <div class="figure-instruction">
+        INSERT IMAGE HERE: Normal distribution curve showing critical regions and test statistic<br>
+        To add your image: Replace this entire div with:<br>
+        &lt;img src="path/to/distribution-diagram.png" alt="Distribution diagram"&gt;
+      </div>
+      <p class="figure-caption">Normal distribution showing rejection regions (shaded) at α = 0.05 and α = 0.01, with observed z-statistic of -14.837 falling far into the left rejection region.</p>
+    </div>
+
+    <h2>Discussion</h2>
+
+    <h3>Interpretation of Findings</h3>
+    <p>These findings show statistically significant differences between victims and the population. Victims report <strong>higher confidence</strong> in self-protection (lower scores). This is counterintuitive given prior research, but could make sense given a different approach. This finding contradicts findings that victims experience negative psychological impacts, as The Open University (2020) notes that "in addition to financial hardship, some victims might experience negative effects on their mental health, physical health, and personal relationships." This suggests experiential learning effects may outweigh negative psychological impacts for self-protection beliefs specifically. Victims might conclude they have already experienced a cybercrime, so it will 'never' happen again.</p>
+
+    <p>Victims may adopt protective behaviors after victimization like 2FA or password managers. The support for this idea comes from the Global Cyber Alliance (2024) emphasis on "recovery through support groups and counseling…Cybersecurity Awareness Training," suggesting victims who engage with different resources can rebuild confidence. The CISA (2025) notes their awareness program is aimed at "empowering the American public to be safer and more secure online," which may explain increased confidence post-victimization. Finally, Chawki and Abraham (2025) highlight that "individual emotion, attitudes, decisions, and behaviour which in combination with individual characteristics constitute a web of vulnerability factors," suggesting victimization influences attitudes in complex ways. Victims might overestimate their ability, showing false confidence, but we cannot determine the causation from this specific analysis.</p>
+
+    <h3>Significance</h3>
+    <p>The large sample size (<em>n</em> = 20,389) creates huge statistical power. The small effect size of 0.10 difference on a 5-point scale is not practically meaningful, however. The Cohen's d for this can be calculated to further understand these findings:</p>
+
+    <div class="equation">
+      d = (x̄ - μ) / σ = (2.12 - 2.22) / 0.963 = -0.10
+    </div>
+
+    <p>This is a very small effect. The question to observe is: <strong>"Does a 0.10 difference matter in the real world?"</strong></p>
+
+    <h3>Limitations</h3>
+    <div class="highlight-box">
+      <h3>Study Limitations</h3>
+      <ul>
+        <li><strong>Cross-sectional design:</strong> This data is cross-sectional, meaning there is no specific ordering. We do not know if the attitudes changed after victimization or if they existed before the crime happened.</li>
+        <li><strong>Sample composition:</strong> Because the victim group is 77.5% of the sample, it barely constitutes a subsample.</li>
+        <li><strong>Self-report bias:</strong> Both victimization and confidence are self-reported, which is always an issue with large-form surveys.</li>
+        <li><strong>Missing data:</strong> Individuals who said "I don't know" or "Unsure" largely hinder the true generalizability of this dataset.</li>
+        <li><strong>Perception vs. behavior:</strong> This data captures perceived ability, not actual protective behaviors. Our Mental Health (2025) notes that for some types of victimization "emotional scars can persist long after the digital attacks have ceased, impacting their psychological, emotional, and social well-being," suggesting our measure may not capture long-term impacts.</li>
+        <li><strong>Crime type generalization:</strong> Results might vary by the type of cybercrime experienced, which is generalized and not specific enough to determine.</li>
+      </ul>
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>There is strong statistical evidence that individuals who have experienced cybercrime have a different view from those who have not. These victims are <strong>more confident</strong>, however, not less. The effect size is small despite the massive statistical significance, which challenges some prior research on victimization psychology but does align with cybersecurity awareness literature.</p>
+
+    <p>Future research should employ:</p>
+    <ul>
+      <li>Longitudinal design to establish causation</li>
+      <li>Differentiation by crime type</li>
+      <li>Measures of actual protective behaviors</li>
+    </ul>
+
+    <p>Cybersecurity education and support resources may effectively increase victims' confidence and actual protective capabilities.</p>
+
+    <h2>References</h2>
+    <p>Actionable Cybersecurity Tools. (2024, July 9). <em>Cybercrime Victims - Individuals</em>. Global Cyber Alliance. Retrieved December 2, 2025, from https://act.globalcyberalliance.org/index.php/Cybercrime_Victims_-_Individuals</p>
+
+    <p>Chawki, M., & Abraham, A. (Eds.). (2025). <em>Cybercrime Unveiled: Technologies for Analysing Legal Complexity</em>. Springer Nature Switzerland. https://doi.org/10.1007/978-3-031-80557-8_2</p>
+
+    <p>Cybersecurity & Infrastructure Security Agency. (2025). <em>CISA Cybersecurity Awareness Program</em>. Retrieved December 2, 2025, from https://www.cisa.gov/resources-tools/programs/cisa-cybersecurity-awareness-program</p>
+
+    <p>Our Mental Health. (2025, November 12). <em>Digital Wounds: Overcoming Cyberbullying and Reclaiming Self-Worth</em>. Retrieved December 2, 2025, from https://www.ourmental.health/screen-time-sanity/digital-wounds-overcoming-cyberbullying-and-reclaiming-self-worth</p>
+
+    <p>The Open University. (2020, November 17). <em>3.1 Impact of cybercrime on victims and coping strategies</em>. Retrieved December 2, 2025, from https://www.open.edu/openlearn/health-sports-psychology/psychology/the-psychology-cybercrime/content-section-3.1</p>
+  </main>
+
+  <script>
+    // Particle System
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+    
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = Math.random() > 0.5 ? 'rgba(255, 71, 87, 0.6)' : 'rgba(255, 165, 2, 0.6)';
+      }
+      
+      update() {
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 200) {
+          this.x += dx * 0.002;
+          this.y += dy * 0.002;
+        }
+        
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+      }
+    }
+    
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push(new Particle());
+    }
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
