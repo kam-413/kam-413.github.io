@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CNIT Cybersecurity Data Assessment | Kaitlyn Mohr</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #252525;
+      --text-primary: #f5f5f5;
+      --text-secondary: #e5e5e0;
+      --accent-red: #ff4757;
+      --accent-amber: #ffa502;
+      --border: #333;
+      --glow-red: rgba(255, 71, 87, 0.3);
+      --glow-amber: rgba(255, 165, 2, 0.3);
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    p, li {
+      text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse at 20% 30%, var(--glow-red) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, var(--glow-amber) 0%, transparent 50%),
+        var(--bg-primary);
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.7);
+      border-bottom: 1px solid rgba(255, 71, 87, 0.2);
+      z-index: 1000;
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+    }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent-amber);
+      text-shadow: 0 0 10px var(--glow-amber);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 120px auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .meta-label {
+      color: var(--accent-amber);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .tag {
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 3rem 0 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent-red);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--accent-amber);
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      backdrop-filter: blur(5px);
+    }
+
+    ul, ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+      color: var(--text-secondary);
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem 1rem 3rem;
+      border-radius: 6px;
+      backdrop-filter: blur(5px);
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    em {
+      color: var(--accent-amber);
+      font-style: italic;
+    }
+
+    .highlight-box {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-amber);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .highlight-box h3 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    thead {
+      background: var(--bg-tertiary);
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      color: var(--accent-amber);
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 1rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(37, 37, 37, 0.6);
+    }
+
+    .table-caption {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-top: 1rem;
+      background: rgba(26, 26, 26, 0.4);
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .report-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <canvas id="particles"></canvas>
+
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="back-link">← Back to Research</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <div class="report-meta">
+        <div class="meta-item">
+          <span class="meta-label">Date:</span>
+          <span>November 10, 2025</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Category:</span>
+          <span>Security Assessment</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Course:</span>
+          <span>DAT 310: Data Management & Visualization</span>
+        </div>
+      </div>
+      <h1>Data Needs Assessment for CNIT: Building Cybersecurity & Cyber-Conflict Readiness at a Higher-Education Institute</h1>
+      <p class="subtitle">Assess CNIT's data needs to detect, analyze, respond to, and recover from cyber incidents — including nation-level or sophisticated attacks — while preserving student/faculty privacy and institutional continuity.</p>
+      <div class="tags">
+        <span class="tag">Cybersecurity</span>
+        <span class="tag">NIST Framework</span>
+        <span class="tag">ISO 27001</span>
+        <span class="tag">SIEM</span>
+        <span class="tag">Incident Response</span>
+        <span class="tag">EDUCAUSE</span>
+      </div>
+    </div>
+
+    <h2>Introduction</h2>
+    <p>The increasing frequency and sophistication of cyberattacks targeting higher education institutions raises alarms for our IT department. Colleges and universities face growing risks from not only nation-state actors, but criminal and insider threats as well. However, they often lack cohesive frameworks to be able to properly identify, respond, and prevent effectively. The purpose of this paper is to assess the Computing, Networking, and Information Technology (CNIT) division's data needs for developing a cyber conflict readiness framework to enhance resilience while preserving privacy and institutional continuity. Guided by NIST, ISO/IEC 27001, and EDUCAUSE best practices, a strategic, data-driven approach can empower CNIT to strengthen cybersecurity intelligence, improve incident response, and align with ethical data stewardship in higher education.</p>
+
+    <h2>Literature/Background</h2>
+
+    <h3>CNIT's Role and Context in Higher Education</h3>
+    <p>CNIT provides network infrastructure, endpoint protection, and cybersecurity oversight across all campus systems. However, because of the size and individuality of the department, it maintains very unique challenges throughout the years. For our needs, these challenges are as follows: 1) maintaining a decentralized IT system across the academic/administrative units, 2) balancing openness of academic collaboration with security, and 3) protecting sensitive data on students, research, and faculty. The core systems CNIT covers include identity management, security logs, network monitoring, cloud services, and general student information systems. Main stakeholders include IT security officers, data governance committees, academic researchers, and administrators (Ulven & Wangen, 2021; EDUCAUSE, 2025).</p>
+
+    <h3>Typical Data Needs for Cyber Conflict</h3>
+    <p>Typically, on this kind of project, the data needs are simple to identify. For our case, our data needs are Detection & Monitoring Data, Analysis Data, Response & Recovery Data, and Privacy & Compliance Data. Detection/Monitoring includes network flow data, intrusion system logs, and endpoint telemetry. This can be integrated with Security Information and Event Management (SIEM) systems. Analysis Data would pertain to threat intel feeds through open source and government partnerships and anomaly detection/vulnerability scan results. Response/Recovery Data can be found through incident response logs, digital forensics, and our backup/recovery metrics. This would also require communication protocols for our crisis management or disaster recovery (DR). Finally, Privacy/Compliance Data can be accessed through classification of inventories under either Family Educational Rights and Privacy Act (FERPA) or General Data Protection Requirements (GDPR) compliant, and access control/audit trails (NIST CSF, 2018; NIST SP 800-53 Rev.5, 2020; ISO/IEC 27001, 2022).</p>
+
+    <h2>Data Needs Assessment Plan</h2>
+    <p>Our data plan has five main stages: Data Inventory/Mapping, Gap Analysis, Data Collection/Integration, Data Governance/Confidentiality, and Reporting/Decision-Making Framework. First, we must identify all data sources relevant to cybersecurity operations. This also requires us to classify according to sensitivity and ownership. Next, we must evaluate existing monitoring and response data against the National Institute of Standards and Technology (NIST) and International Organization for Standardization (ISO) frameworks. This has us identifying missing datasets for early warning and post-incident analysis. Third, we need to actually deploy automated log aggregation and SIEM correlation. This will aid us in establishing the data-sharing agreements with our trusted partners like the Multi-State Informational Sharing and Analysis Center (MS-ISAC) or the Research Education Networking Information Sharing and Analysis Center (REN-ISAC). Then, once we collect our data, we must define access levels for all data and the encryption standards for all sensitive logs. This forces us to integrate least-privilege access and anonymization for all research data, which is essential to maintain security to some degree. Finally, we can develop our dashboards linking data insights to executive decision-making, and establish the review cycles for our continuous improvement (EDUCAUSE, 2025; SANS Institute, 2025; IBM/Ponemon, 2024).</p>
+
+    <p>The ethical/legal and operational considerations pertain to four main areas. Ethical Stewardship covers the protection of information during cybersecurity monitoring, ensuring no information is exposed to even the individuals monitoring it. Legal Compliance is the abiding by FERPA, HIPPA, and if applicable, international data protection standards. This ensures all laws are being followed. Operational Difficulty is possible, with lack of access to good staff training, funding or data silos a possibility. These would need to be addressed as they arise. Finally, Professionalism/Confidentiality would cover how well we align with the Confidentiality & Professionalism Agreement (ISO/IEC 27001, 2022; EDUCAUSE, 2025).</p>
+
+    <h2>Reflection on Next Steps</h2>
+    <p>Our next steps are determined by the speed of receiving the information and permissions needed. We would need to submit to the Institutional Review Board (IRB) or possibly obtain legal approval for the data use. We would then need to get the administrative buy-in for a cross-departmental data integration, and receive the budgetary and technical resources to actually implement this tool. Future-looking, the exploration of AI-based predictive analysis for threat detection is a real possibility, and would require future research and benchmarking against our peer institutions' cyber-readiness metrics to process. Finally, the institution would need to build a culture of shared cyber-resilience that requires not only the technology but also the transparent data governance and community trust to allow the plan to fully take hold.</p>
+
+    <h2>References</h2>
+    <p>National Institute of Standards and Technology. (2018). Framework for improving critical infrastructure cybersecurity (Version 1.1). https://www.nist.gov/publications/framework-improving-critical-infrastructure-cybersecurity-version-11</p>
+
+    <p>National Institute of Standards and Technology. (2020). NIST Special Publication 800-53, Revision 5: Security and privacy controls for information systems and organizations. https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final</p>
+
+    <p>EDUCAUSE. (2025). 2026 EDUCAUSE top 10 IT issues: Collaborative cybersecurity. https://er.educause.edu/articles/2025/10/2026-educause-top-10-1-collaborative-cybersecurity</p>
+
+    <p>SANS Institute. (2025). SANS 2025 security awareness report. https://www.sans.org/mlp/ssa-security-awareness-report</p>
+
+    <p>International Organization for Standardization. (2022). ISO/IEC 27001: Information security management systems—Requirements. https://www.get-iso.org/iso-27001-cyber-security</p>
+
+    <p>IBM & Ponemon Institute. (2024). Cost of a data breach report 2025. https://www.ibm.com/reports/data-breach</p>
+
+    <p>Ulven, J. B., & Wangen, G. (2021). A systematic review of cybersecurity risks in higher education. Future Internet, 13(2), 39. https://www.mdpi.com/1999-5903/13/2/39</p>
+
+    <h2>Appendix A - Confidentiality & Professionalism Agreement</h2>
+    
+    <h3>Appendix A.1 - Mutual NDA</h3>
+    <p>This outlines all possibilities of our agreement, as well as the confidentiality steps and further explanations of legal rights and data ownership.</p>
+  </main>
+
+  <script>
+    // Particle animation matching the ML case study
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const particles = [];
+    const particleCount = 100;
+    
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.radius = Math.random() * 2;
+        this.opacity = Math.random() * 0.5;
+      }
+      
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 165, 2, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+    
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
